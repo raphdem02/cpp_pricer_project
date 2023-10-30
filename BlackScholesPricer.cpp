@@ -3,7 +3,7 @@
 #include <cmath>
 #define _PI 3.14159265358979
 
-BlackScholesPricer::BlackScholesPricer(VanillaOption* option, double asset_price, double interest_rate, double volatility) : option_(option), asset_price_(asset_price), interest_rate_(interest_rate), volatility_(volatility) {}
+BlackScholesPricer::BlackScholesPricer(VanillaOption* option, double asset_price, double interest_rate, double volatility) : _option(option), _asset_price(asset_price), _interest_rate(interest_rate), _volatility(volatility) {}
 
 BlackScholesPricer::~BlackScholesPricer() { }
 
@@ -17,29 +17,29 @@ double BlackScholesPricer::normalCont(double x) {
 }
 
 double BlackScholesPricer::operator()() {
-    double strike = option_->GetStrike();
-    double expiry = option_->getExpiry();
+    double strike = _option->GetStrike();
+    double expiry = _option->getExpiry();
 
-    double d1 = (log(asset_price_ / strike) + (interest_rate_ + 0.5 * volatility_ * volatility_) * expiry) / (volatility_ * sqrt(expiry));
-    double d2 = d1 - volatility_ * sqrt(expiry);
+    double d1 = (log(_asset_price / strike) + (_interest_rate + 0.5 * _volatility * _volatility) * expiry) / (_volatility * sqrt(expiry));
+    double d2 = d1 - _volatility * sqrt(expiry);
 
 
-    if (option_->GetOptionType() == VanillaOption::OptionType::Call) {
-        return asset_price_ * normalCont(d1) - strike * exp(-interest_rate_ * expiry) * ;normalCont(d2);
+    if (_option->GetOptionType() == OptionType::Call) {
+        return _asset_price * normalCont(d1) - strike * exp(-_interest_rate * expiry) * normalCont(d2);
     } else { // Put
-        return strike * exp(-interest_rate_ * expiry) * normalCont(-d2) - asset_price_ * normalCont(-d1);
+        return strike * exp(-_interest_rate * expiry) * normalCont(-d2) - _asset_price * normalCont(-d1);
     }
 }
 
 double BlackScholesPricer::delta() {
-    double strike = option_->GetStrike();
-    double expiry = option_->getExpiry();
+    double strike = _option->GetStrike();
+    double expiry = _option->getExpiry();
 
-    double d1 = (log(asset_price_ / strike) + (interest_rate_ + 0.5 * volatility_ * volatility_) * expiry) / (volatility_ * sqrt(expiry));
+    double d1 = (log(_asset_price / strike) + (_interest_rate + 0.5 * _volatility * _volatility) * expiry) / (_volatility * sqrt(expiry));
 
     double cdf_d1 = 0.5 * std::erfc(-d1 / sqrt(2));
 
-    if (option_->GetOptionType() == VanillaOption::OptionType::Call) {
+    if (_option->GetOptionType() == OptionType::Call) {
         return normalCont(d1);
     } else { // Put
         return -normalCont(-d1);

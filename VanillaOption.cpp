@@ -20,8 +20,8 @@ CallOption::CallOption(double expiry, double strike) : VanillaOption(expiry, str
 
 CallOption::~CallOption() {}
 
-VanillaOption::OptionType CallOption::GetOptionType() {
-    return VanillaOption::OptionType::Call;
+OptionType CallOption::GetOptionType() {
+    return OptionType::Call;
 }
 
 double CallOption::payoff(double stockPrice) {
@@ -33,8 +33,8 @@ PutOption::PutOption(double expiry, double strike) : VanillaOption(expiry, strik
 
 PutOption::~PutOption() {}
 
-VanillaOption::OptionType PutOption::GetOptionType() {
-    return VanillaOption::OptionType::Put;
+OptionType PutOption::GetOptionType() {
+    return OptionType::Put;
 }
 
 double PutOption::payoff(double stockPrice) {

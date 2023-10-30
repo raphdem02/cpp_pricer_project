@@ -6,7 +6,7 @@
 #include "BlackScholesPricer.h"
 
 
-int maun()
+int main()
 {
     double S0(95.), K(100.), T(0.5), r(0.02), sigma(0.2);
     {
@@ -15,6 +15,7 @@ int maun()
 
         BlackScholesPricer BSpricer(&opt1, S0, r, sigma);
         std::cout << "call price = " << BSpricer() << ", delta = " << BSpricer.delta() << std::endl;
+        
 
     }
 
