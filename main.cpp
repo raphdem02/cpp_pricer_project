@@ -21,7 +21,7 @@ int main()
         std::cout << "######################### Black Scholes Model ################################" << std::endl;
         std::cout << "call price = " << BSpricerCall() << ", delta = " << BSpricerCall.delta() << std::endl;
         std::cout << "put price = " << BSpricerPut() << ", delta = " << BSpricerPut.delta() << std::endl;
-        /*
+        
         int N(150);
         double U = exp(sigma * sqrt(T / N)) - 1.0;
         double D = exp(-sigma * sqrt(T / N)) - 1.0;
@@ -40,7 +40,7 @@ int main()
         std::cout << std::endl;
         std::cout << "CRR pricer computed put price = " << crr_pricer2() << std::endl;
         std::cout << "CRR pricer explicit formula put price = " << crr_pricer2(true) << std::endl;
-        */
+        
     }
     #pragma endregion
 

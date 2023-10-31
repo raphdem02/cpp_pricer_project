@@ -24,7 +24,7 @@ OptionType DigitalCallOption::GetOptionType() { return OptionType::Call; }
 
 double DigitalCallOption::payoff(double z)
 {
-	if (z >= _strike)
+	if (z >= GetStrike())
 		return 1;
 	else
 		return 0;
@@ -39,7 +39,7 @@ OptionType DigitalPutOption::GetOptionType() { return OptionType::Put; }
 
 double DigitalPutOption::payoff(double z)
 {
-	if (z <= _strike)
+	if (z <= GetStrike())
 		return 1;
 	else
 		return 0;

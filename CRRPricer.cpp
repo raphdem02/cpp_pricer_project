@@ -15,7 +15,7 @@ CRRPricer::~CRRPricer() { }
 
 void CRRPricer::checkArbitrage(){
     if(!(_down < _interest_rate && _interest_rate < _up)){
-        throw std::invalid_arguement("Error : Carefull, There is an arbitrage")
+        throw std::invalid_argument("Error : Carefull, There is an arbitrage");
     }
 }
 

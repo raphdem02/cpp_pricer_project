@@ -21,6 +21,10 @@ class CRRPricer
         ~CRRPricer();
         double get(int, int);
         double operator()(bool closed_from = false);
+        void display();
+		double facto(int);
+		bool getExercise(int, int);
+        void checkArbitrage();
         
 
 };
