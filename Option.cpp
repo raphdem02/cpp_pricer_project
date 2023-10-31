@@ -12,3 +12,4 @@ Option::~Option() {}
 
 double Option::getExpiry() {return _expiry;}
 
+bool Option::isDigital() { return false; }
