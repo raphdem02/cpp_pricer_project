@@ -17,7 +17,10 @@ class Option{
         virtual double payoff(double)=0;
         virtual double GetStrike() =0;
         virtual OptionType GetOptionType() = 0;
+        virtual double payoffPath(std::vector<double>);
         virtual bool isDigital();
+        virtual std::vector<double> getTimeSteps();
+        virtual bool isAsianOption();
     
 };
 

@@ -3,11 +3,20 @@
 #include <stdexcept>
 
 CRRPricer::CRRPricer(Option* option, int depth, double asset_price, double up, double down, double interest_rate) : _option(option), _depth(depth), _asset_price(asset_price), _up(up), _down(down), _interest_rate(interest_rate), _tree(depth) {
-    if (!(_down < _interest_rate && _interest_rate < _up)) {
-        throw std::invalid_argument("Error: There is an arbitrage opportunity.");
-    }
+    if(option->isAsianOption()){
+		throw std::invalid_argument("Error. It's an Asian option !");
+	}
+	else{
 
-    compute();
+		if (!(_down < _interest_rate && _interest_rate < _up)) {
+        	throw std::invalid_argument("Error: There is an arbitrage opportunity.");
+    	}
+		compute();
+
+	}
+	
+
+    
     
 }
 
