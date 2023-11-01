@@ -7,6 +7,9 @@
 #include "BinaryTree.h"
 #include "CRRPricer.h"
 #include "DigitalOption.h"
+#include "AsianOption.h"
+#include "BlackScholesMCPricer.h"
+#include "MT.h"
 
 int main()
 {
@@ -110,4 +113,41 @@ int main()
      t3.setDepth(4);
      t3.display();
      }
+
+
+     {
+        std::cout << std::endl;
+        std::cout << "###################################### Monte Carlo ####################################" << std::endl;
+        std::cout << std::endl;
+        
+        std::vector<Option*> opt_ptrs;
+        opt_ptrs.push_back(new CallOption(T, K));
+        opt_ptrs.push_back(new PutOption(T, K));
+        opt_ptrs.push_back(new DigitalCallOption(T, K));
+        opt_ptrs.push_back(new DigitalPutOption(T, K));
+
+
+        std::vector<double> fixing_dates;
+        for (int i = 1; i <= 5; i++) {
+            fixing_dates.push_back(0.1 * i);
+        }
+        opt_ptrs.push_back(new AsianCallOption(fixing_dates, K));
+        opt_ptrs.push_back(new AsianPutOption(fixing_dates, K));
+
+        std::vector<double> ci;
+        BlackScholesMCPricer* pricer;
+
+        std::vector<std::string> options{ "Call", "Put", "Digital Call", "Digital Put", "Asian Call", "Asian Put" };
+        int counter = 0;
+        for (auto& opt_ptr : opt_ptrs) {
+            pricer = new BlackScholesMCPricer(opt_ptr, S0, r, sigma);
+            do {
+                pricer->generate(10);
+                ci = pricer->confidenceInterval();
+            } while (ci[1] - ci[0] > 1e-2);
+            std::cout << "nb samples : " << pricer->getNbPaths() << std::endl;
+            std::cout << "price of " << options[counter] << " : " << (*pricer)() << std::endl << std::endl;
+            counter++;
+        }
+    }
 }
