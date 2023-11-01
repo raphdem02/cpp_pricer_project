@@ -21,6 +21,7 @@ class Option{
         virtual bool isDigital();
         virtual std::vector<double> getTimeSteps();
         virtual bool isAsianOption();
+        virtual bool isAmericanOption();
     
 };
 
