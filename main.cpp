@@ -10,6 +10,7 @@
 #include "AsianOption.h"
 #include "BlackScholesMCPricer.h"
 #include "MT.h"
+#include "AmericanOption.h"
 
 int main()
 {
@@ -150,4 +151,31 @@ int main()
             counter++;
         }
     }
+
+
+        #pragma region TD8
+    std::cout << std::endl;
+    std::cout << "********************************** TD 8 **********************************" << std::endl;
+    std::cout << std::endl;
+    {
+        std::vector<Option*> opt_ptrs;
+        opt_ptrs.push_back(new CallOption(T, K));
+        opt_ptrs.push_back(new PutOption(T, K));
+        opt_ptrs.push_back(new DigitalCallOption(T, K));
+        opt_ptrs.push_back(new DigitalPutOption(T, K));
+        opt_ptrs.push_back(new AmericanCallOption(T, K));
+        opt_ptrs.push_back(new AmericanPutOption(T, K));
+
+        CRRPricer* pricer;
+        std::vector<std::string> options{ "Call", "Put", "Digital Call", "Digital Put", "American Call", "American Put" };
+        for (auto& opt_ptr : opt_ptrs) {
+            pricer = new CRRPricer(opt_ptr, 150, S0, r, sigma);
+            pricer->compute();
+            std::cout << "price : " << (*pricer)() << std::endl << std::endl;
+
+            delete pricer;
+            delete opt_ptr;
+        }
+    }
+    #pragma endregion
 }
