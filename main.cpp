@@ -11,10 +11,10 @@
 #include "BlackScholesMCPricer.h"
 #include "MT.h"
 #include "AmericanOption.h"
-
+/**/
 int main()
 {
-    double S0(95.), K(100.), T(0.5), r(0.02), sigma(0.2);
+    double S0(100), K(101), T(5), r(0.01), sigma(0.1);
     #pragma region Part1    
     {
         // Vanilla Option
@@ -28,10 +28,10 @@ int main()
         std::cout << "Black scholes put price = " << BSpricerPut() << ", delta = " << BSpricerPut.delta() << std::endl;
         std::cout << std::endl;
         
-        int N(150);
-        double U = exp(sigma * sqrt(T / N)) - 1.0;
-        double D = exp(-sigma * sqrt(T / N)) - 1.0;
-        double R = exp(r * T / N) - 1.0;
+        int N(5);
+        double U = 0.05; /*exp(sigma * sqrt(T / N)) - 1.0;*/
+        double D = -0.045; /*exp(-sigma * sqrt(T / N)) - 1.0;*/
+        double R = 0.01; /*exp(r * T / N) - 1.0;*/
         // CRR Pricer
         CRRPricer crr_pricer1(&opt1, N, S0, U, D, R);
         std::cout << "Calling CRR pricer with depth = " << N << std::endl;
@@ -64,10 +64,10 @@ int main()
         std::cout << std::endl;
         std::cout << std::endl;
 
-        int N(150);
-        double U = exp(sigma * sqrt(T / N)) - 1.0;
-        double D = exp(-sigma * sqrt(T / N)) - 1.0;
-        double R = exp(r * T / N) - 1.0;
+        int N(5);
+        double U = 0.05; /*exp(sigma * sqrt(T / N)) - 1.0;*/
+        double D = -0.045; /*exp(-sigma * sqrt(T / N)) - 1.0;*/
+        double R = 0.01; /*exp(r * T / N) - 1.0;*/
             
         // CRR pricer  
         CRRPricer crr_pricer1(&opt1, N, S0, U, D, R);
@@ -169,7 +169,7 @@ int main()
         CRRPricer* pricer;
         std::vector<std::string> options{ "Call", "Put", "Digital Call", "Digital Put", "American Call", "American Put" };
         for (auto& opt_ptr : opt_ptrs) {
-            pricer = new CRRPricer(opt_ptr, 150, S0, r, sigma);
+            pricer = new CRRPricer(opt_ptr, 5, S0, r, sigma);
             pricer->compute();
             std::cout << "price : " << (*pricer)() << std::endl << std::endl;
 
