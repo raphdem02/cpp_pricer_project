@@ -22,10 +22,15 @@ int BlackScholesMCPricer::getNbPaths()
 }
 
 
-void BlackScholesMCPricer::generate(int nb_paths)
-{
+/*void BlackScholesMCPricer::generate(int nb_paths)
+{	
+	if (_option->isAsianOption()) // Number of steps for asian options
+		m = _option->getTimeSteps().size();
+	else // Number of steps for european options
+		m = 1;
+
 	double expiry = _option->getExpiry();
-	double dt = expiry;  // European Option, si on doit faire les autres on fera d'autre variable
+	double dt = expiry / m;  // European Option, si on doit faire les autres on fera d'autre variable
 
 	for (int i = 0; i < nb_paths; i++)
 	{
@@ -36,7 +41,32 @@ void BlackScholesMCPricer::generate(int nb_paths)
 		_current_estimate = (_nb_paths * _current_estimate + _option->payoff(s)) / (_nb_paths + 1);
 		_nb_paths++;
 	}
+}*/
+
+void BlackScholesMCPricer::generate(int nb_paths)
+{   
+    double m = (_option->isAsianOption()) ? _option->getTimeSteps().size() : 1;
+    double expiry = _option->getExpiry();
+    double dt = expiry / m;
+
+    for (int i = 0; i < nb_paths; i++)
+    {
+        std::vector<double> spot_prices(m + 1, _initial_price);
+        double normal = MT::rand_norm();
+
+        for (int j = 1; j <= m; j++) 
+        {
+            double step_price = spot_prices[j - 1] * exp((_interest_rate - 0.5 * _volatility * _volatility) * dt + _volatility * sqrt(dt) * normal);
+            spot_prices[j] = step_price;
+        }
+
+        _current_estimate = (_nb_paths * _current_estimate + _option->payoffPath(spot_prices)) / (_nb_paths + 1);
+        _nb_paths++;
+    }
 }
+
+
+
 
 
 std::vector<double> BlackScholesMCPricer::confidenceInterval()

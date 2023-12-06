@@ -17,27 +17,30 @@ double BlackScholesPricer::normalCont(double x) {
 }
 
 double BlackScholesPricer::operator()() {
+    double d1, d2;
+    calculateD1D2(d1, d2);
+    return calculateOptionPrice(d1, d2);
+}
+
+void BlackScholesPricer::calculateD1D2(double& d1, double& d2) {
     double strike = _option->GetStrike();
     double expiry = _option->getExpiry();
+    d1 = (log(_asset_price / strike) + (_interest_rate + 0.5 * _volatility * _volatility) * expiry) / (_volatility * sqrt(expiry));
+    d2 = d1 - _volatility * sqrt(expiry);
+}
 
-    double d1 = (log(_asset_price / strike) + (_interest_rate + 0.5 * _volatility * _volatility) * expiry) / (_volatility * sqrt(expiry));
-    double d2 = d1 - _volatility * sqrt(expiry);
-
-
+double BlackScholesPricer::calculateOptionPrice(double d1, double d2) {
     if (_option->GetOptionType() == OptionType::Call) {
-        if (_option->isDigital()) {
-            return normalCont(d2) * std::exp(-_interest_rate * _option->getExpiry());
-        } else {
-            return _asset_price * normalCont(d1) - _option->GetStrike() * std::exp(-_interest_rate * _option->getExpiry()) * normalCont(d2);
-        }
+        return _option->isDigital() ?
+            normalCont(d2) * exp(-_interest_rate * _option->getExpiry()) :
+            _asset_price * normalCont(d1) - _option->GetStrike() * exp(-_interest_rate * _option->getExpiry()) * normalCont(d2);
     } else { // Put
-        if (_option->isDigital()) {
-            return normalCont(-d2) * std::exp(-_interest_rate * _option->getExpiry());
-        } else {
-            return _option->GetStrike() * std::exp(-_interest_rate * _option->getExpiry()) * normalCont(-d2) - _asset_price * normalCont(-d1);
-        }
+        return _option->isDigital() ?
+            normalCont(-d2) * exp(-_interest_rate * _option->getExpiry()) :
+            _option->GetStrike() * exp(-_interest_rate * _option->getExpiry()) * normalCont(-d2) - _asset_price * normalCont(-d1);
     }
 }
+
 
 double BlackScholesPricer::delta() {
     double strike = _option->GetStrike();
