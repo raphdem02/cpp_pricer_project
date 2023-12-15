@@ -1,3 +1,4 @@
+#pragma once
 #include "Option.h"
 #include <vector>
 
@@ -21,23 +22,6 @@ class AsianOption : public Option{
         bool isAsianOption() override;
 };
 
-class AsianCallOption : public AsianOption{
-    public:
-        AsianCallOption(std::vector<double>,double);
-        ~AsianCallOption();
-
-        OptionType GetOptionType() override;
-        double payoff(double) override;
-};
 
 
 
-class AsianPutOption : public AsianOption{
-
-	public:
-		AsianPutOption(std::vector<double>, double);
-		~AsianPutOption();
-
-		OptionType GetOptionType() override;
-		double payoff(double) override;
-};

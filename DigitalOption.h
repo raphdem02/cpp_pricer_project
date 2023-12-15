@@ -1,3 +1,4 @@
+#pragma once
 #include "Option.h"
 
 
@@ -22,23 +23,5 @@ class DigitalOption : public Option
 };
 
 
-class DigitalCallOption : public DigitalOption
-{
-	public:
-		DigitalCallOption(double, double);
-		~DigitalCallOption();
-
-		OptionType GetOptionType() override;
-		double payoff(double) override;
-};
 
 
-class DigitalPutOption : public DigitalOption
-{
-	public:
-		DigitalPutOption(double, double);
-		~DigitalPutOption();
-
-		OptionType GetOptionType() override;
-		double payoff(double) override;
-};

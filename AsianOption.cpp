@@ -45,37 +45,4 @@ bool AsianOption::isAsianOption(){
 }
 
 
-// Call
-
-AsianCallOption::AsianCallOption(std::vector<double> timeSteps , double strike) : AsianOption(timeSteps , strike){
-
-} 
-
-AsianCallOption::~AsianCallOption(){}
-
-OptionType AsianCallOption::GetOptionType(){
-    return OptionType::Call;
-}
-
-double AsianCallOption::payoff(double spot_prices){
-    return std::max(spot_prices - _strike , 0.0);
-}
-
-//Put
-
-AsianPutOption::AsianPutOption(std::vector<double> timeSteps , double strike) : AsianOption(timeSteps , strike){
-
-}
-
-
-AsianPutOption::~AsianPutOption(){}
-
-OptionType AsianPutOption::GetOptionType(){
-    return OptionType::Put;
-}
-
-
-double AsianPutOption::payoff(double spot_prices){
-    return std::max(_strike - spot_prices, 0.0);
-}
 

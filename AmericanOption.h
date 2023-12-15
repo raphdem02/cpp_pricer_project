@@ -1,3 +1,4 @@
+#pragma once
 #include "Option.h"
 #include <vector>
 
@@ -17,20 +18,4 @@ class AmericanOption: public Option {
 
 };
 
-class AmericanCallOption: public AmericanOption{
-    public:
-        AmericanCallOption(double,double);
-        ~AmericanCallOption();
-        OptionType GetOptionType() override;
-        double payoff(double) override;
-};
-
-
-class AmericanPutOption : public AmericanOption{
-    public:
-        AmericanPutOption(double , double);
-        ~AmericanPutOption();
-        OptionType GetOptionType() override;
-        double payoff(double) override;
-};
 
