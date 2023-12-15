@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra -std=c++11
-SOURCES = BlackScholesPricer.cpp Option.cpp main.cpp VanillaOption.cpp BinaryTree.cpp DigitalOption.cpp CRRPricer.cpp AsianOption.cpp MT.cpp BlackScholesMCPricer.cpp AmericanOption.cpp
+SOURCES = CallOption.cpp PutOption.cpp BlackScholesPricer.cpp Option.cpp main.cpp VanillaOption.cpp
 EXECUTABLE = PricerLehmanBrothers
 
 all: $(EXECUTABLE)
