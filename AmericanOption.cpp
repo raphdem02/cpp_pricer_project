@@ -1,10 +1,10 @@
 #include "AmericanOption.h"
 #include <vector>
 
-#pragma region AmericanOp
+
 AmericanOption::AmericanOption(double expiry,double strike):Option(expiry){
     if(strike<=0){
-        throw std::invalid_argument("Strike must be positive");
+        throw std::invalid_argument("Strike has to be positive");
     }
     else{
         _strike=strike;
@@ -21,9 +21,9 @@ double AmericanOption::GetStrike(){
     return _strike;
 }
 
-#pragma endregion
 
-#pragma region AmericanCallOp
+
+
 //Call
 AmericanCallOption::AmericanCallOption(double expiry,double strike): AmericanOption(expiry,strike){}
 
@@ -42,9 +42,9 @@ double AmericanCallOption::payoff(double spot_prices){
     }
 }
 
-#pragma endregion
 
-#pragma region AmericanPutOp
+
+
 AmericanPutOption::AmericanPutOption(double expiry, double strike) : AmericanOption(expiry , strike){
 
 }
@@ -63,4 +63,3 @@ double AmericanPutOption::payoff(double spot_prices){
         return _strike - spot_prices;
     }
 }
-#pragma endregion

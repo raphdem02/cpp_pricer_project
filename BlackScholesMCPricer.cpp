@@ -22,27 +22,6 @@ int BlackScholesMCPricer::getNbPaths()
 }
 
 
-/*void BlackScholesMCPricer::generate(int nb_paths)
-{	
-	if (_option->isAsianOption()) // Number of steps for asian options
-		m = _option->getTimeSteps().size();
-	else // Number of steps for european options
-		m = 1;
-
-	double expiry = _option->getExpiry();
-	double dt = expiry / m;  // European Option, si on doit faire les autres on fera d'autre variable
-
-	for (int i = 0; i < nb_paths; i++)
-	{
-		double normal = MT::rand_norm();
-		double s = _initial_price * exp((_interest_rate - 0.5 * _volatility * _volatility) * dt + _volatility * sqrt(dt) * normal);
-
-		// incremental formula
-		_current_estimate = (_nb_paths * _current_estimate + _option->payoff(s)) / (_nb_paths + 1);
-		_nb_paths++;
-	}
-}*/
-
 void BlackScholesMCPricer::generate(int nb_paths)
 {   
     double m = (_option->isAsianOption()) ? _option->getTimeSteps().size() : 1;

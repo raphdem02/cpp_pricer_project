@@ -1,9 +1,8 @@
-#pragma once
 #include "Option.h"
 #include <vector>
 
 
-#pragma region AsianOp
+
 class AsianOption : public Option{
     protected:
         std::vector<double> _timeSteps;
@@ -21,9 +20,7 @@ class AsianOption : public Option{
 
         bool isAsianOption() override;
 };
-#pragma endregion
 
-#pragma region AsianCallOp
 class AsianCallOption : public AsianOption{
     public:
         AsianCallOption(std::vector<double>,double);
@@ -34,9 +31,7 @@ class AsianCallOption : public AsianOption{
 };
 
 
-#pragma endregion
 
-#pragma region AsianPutOp
 class AsianPutOption : public AsianOption{
 
 	public:
@@ -46,4 +41,3 @@ class AsianPutOption : public AsianOption{
 		OptionType GetOptionType() override;
 		double payoff(double) override;
 };
-#pragma endregion

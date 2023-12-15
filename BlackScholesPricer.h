@@ -1,6 +1,6 @@
-#pragma once
+
 #include "Option.h"
-//#include "VanillaOption.h"
+
 
 class BlackScholesPricer{
     private:

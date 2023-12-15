@@ -1,6 +1,6 @@
 #include "AsianOption.h"
 
-#pragma region AsianOp
+
 
 //Constructor
 AsianOption::AsianOption(std::vector<double> timeSteps , double strike) : Option(timeSteps.back()){
@@ -44,10 +44,8 @@ bool AsianOption::isAsianOption(){
     return true;
 }
 
-#pragma endregion
 
 // Call
-#pragma region AsianCallOp
 
 AsianCallOption::AsianCallOption(std::vector<double> timeSteps , double strike) : AsianOption(timeSteps , strike){
 
@@ -63,10 +61,7 @@ double AsianCallOption::payoff(double spot_prices){
     return std::max(spot_prices - _strike , 0.0);
 }
 
-#pragma endregion
-
 //Put
-#pragma region AsianPutOp
 
 AsianPutOption::AsianPutOption(std::vector<double> timeSteps , double strike) : AsianOption(timeSteps , strike){
 
@@ -84,4 +79,3 @@ double AsianPutOption::payoff(double spot_prices){
     return std::max(_strike - spot_prices, 0.0);
 }
 
-#pragma endregion

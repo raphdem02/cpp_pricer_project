@@ -1,8 +1,8 @@
 #include "Option.h"
 #include <vector>
-#pragma once
 
-#pragma region AmericanOp
+
+
 class AmericanOption: public Option {
 
     protected:
@@ -16,9 +16,6 @@ class AmericanOption: public Option {
 
 
 };
-#pragma endregion
-
-#pragma region AmericanCallOp
 
 class AmericanCallOption: public AmericanOption{
     public:
@@ -28,9 +25,7 @@ class AmericanCallOption: public AmericanOption{
         double payoff(double) override;
 };
 
-#pragma endregion
 
-#pragma region AmericanPutOp
 class AmericanPutOption : public AmericanOption{
     public:
         AmericanPutOption(double , double);
@@ -39,4 +34,3 @@ class AmericanPutOption : public AmericanOption{
         double payoff(double) override;
 };
 
-#pragma endregion

@@ -113,9 +113,21 @@ double CRRPricer::operator()(bool closed_form) {
         return optionValues.getNode(0, 0);
     }
 }
-
+/*
 double CRRPricer::combination(int n, int k) {
     return facto(n) / (facto(k) * facto(n - k));
+}*/
+
+double CRRPricer::combination(int n, int k) {
+    if (k < 0 || k > n) {
+        return 0.0;  // Invalid combination
+    }
+
+    double result = 1.0;
+    for (int i = 0; i < k; ++i) {
+        result *= static_cast<double>(n - i) / (i + 1);
+    }
+    return result;
 }
 
 void CRRPricer::computeTerminalValues(BinaryTree<double>& optionValues, BinaryTree<bool>& exerciseIndicators, double q) {
