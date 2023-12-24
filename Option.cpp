@@ -10,10 +10,10 @@ Option::Option(double expiry){
 
 Option::~Option() {}
 
-// Return the maturity of the option
+// Return the maturity
 double Option::getExpiry() {return _expiry;}
 
-// Return the payoff of the last spot prices
+// Return the payoff 
 double Option::payoffPath(std::vector<double> spot_prices) {
     return payoff(spot_prices.at(spot_prices.size() - 1));
 }

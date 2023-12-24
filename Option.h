@@ -11,7 +11,7 @@ class Option{
 
     public:
         Option(double);
-        virtual ~Option(); //destructeur virtuel
+        virtual ~Option();
         double getExpiry();
 
         virtual double payoff(double)=0;

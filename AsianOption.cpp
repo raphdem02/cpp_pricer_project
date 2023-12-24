@@ -18,7 +18,7 @@ AsianOption::AsianOption(std::vector<double> timeSteps , double strike) : Option
 // Destructor
 AsianOption::~AsianOption(){}
 
-// Return all the time steps of the option to compute the payoff paths overriden version
+// Return all the time steps, overriden 
 std::vector<double> AsianOption::getTimeSteps(){
     return _timeSteps;
 }

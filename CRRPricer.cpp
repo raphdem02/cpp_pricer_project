@@ -60,7 +60,7 @@ void CRRPricer::calculateBlackScholesParams(int depth, double r, double volatili
 // Destructor
 CRRPricer::~CRRPricer() { }
 
-// Initializes the tree with all prices
+// Init the tree with prices
 void CRRPricer::compute()
 {
 	double value = 0;
@@ -74,20 +74,20 @@ void CRRPricer::compute()
 	}
 }
 
-// Returns the payoff at a specified state of the tree
+// Returns the payoff at a specified state
 double CRRPricer::get(int n, int i) {	
 	return _option->payoff(_tree.getNode(n, i)); 
 	}
 
-// Returns a boolean indicating the exercise condition for american options
+//Indicate the exercise condition for american options
 bool CRRPricer::getExercise(int n, int i) {
 	 return _exerciseTree.getNode(n, i); 
 }
 
-// Display the tree
+// Display
 void CRRPricer::display() {	_tree.display(); }
 
-// Compute the factorial of a number
+// Compute the factorial
 double CRRPricer::facto(int n)
 {
 	if ((n == 0) || (n == 1))
@@ -113,10 +113,7 @@ double CRRPricer::operator()(bool closed_form) {
         return optionValues.getNode(0, 0);
     }
 }
-/*
-double CRRPricer::combination(int n, int k) {
-    return facto(n) / (facto(k) * facto(n - k));
-}*/
+
 
 double CRRPricer::combination(int n, int k) {
     if (k < 0 || k > n) {
